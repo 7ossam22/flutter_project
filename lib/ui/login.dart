@@ -19,12 +19,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  firebaseIAuth auth = firebaseIAuth().Singelton();
   String emailtxt = '';
   String passwordtxt = '';
 
   @override
   Widget build(BuildContext context) {
-    firebaseIAuth auth = firebaseIAuth().Singelton();
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
                             ),
                             FloatingActionButton(
                                 onPressed: () {
-                                  setState(() {});
+                                  auth.signin(emailtxt, passwordtxt);
                                 },
                                 backgroundColor: Colors.cyan,
                                 child: const Icon(Icons.arrow_forward)),
@@ -137,9 +137,6 @@ class _MyAppState extends State<MyApp> {
                         const Divider(
                           color: Colors.white,
                           thickness: 1,
-                        ),
-                        const SizedBox(
-                          height: 5,
                         ),
                         Align(
                           alignment: Alignment.centerLeft,

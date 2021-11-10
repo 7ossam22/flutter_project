@@ -21,9 +21,15 @@ class firebaseIAuth extends IAuth {
   @override
   Future<bool> signin(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
+      // ignore: unused_local_variable
+      String user = _auth.currentUser!.uid.toString();
+      // ignore: avoid_print
+      print('Current user is : ${user.toString()}');
       return true;
     } catch (e) {
+      print('Failed $e');
       return false;
     }
   }
