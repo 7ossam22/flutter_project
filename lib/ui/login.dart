@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_cloud/api/firebase_iauth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
@@ -19,22 +21,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String emailtxt = '';
   String passwordtxt = '';
-  //init
-  @override
-  void initState() {
-    super.initState();
-    try {
-      final Future<FirebaseApp> app = Firebase.initializeApp();
-    } catch (e) {
-      print(e.toString());
-    }
-    // ignore: avoid_print
-  }
 
   @override
   Widget build(BuildContext context) {
     firebaseIAuth auth = firebaseIAuth().Singelton();
-    Future<bool> result = auth.signin('testing@mail.com', 'testingpassword');
+    Future<bool> result =
+        auth.signin('hossam.spiderman94@gmail.com', '0106608675');
     print('Result is : ' + result.toString().length.toString());
 
     return Container(
