@@ -25,10 +25,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     firebaseIAuth auth = firebaseIAuth().Singelton();
-    Future<bool> result =
-        auth.signin('hossam.spiderman94@gmail.com', '0106608675');
-    print('Result is : ' + result.toString().length.toString());
-
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
