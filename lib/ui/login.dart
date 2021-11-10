@@ -38,120 +38,122 @@ class _MyAppState extends State<MyApp> {
               elevation: 0.0,
               centerTitle: true,
             ),
-            body: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 35),
-                child: Center(
-                  child: Form(
-                    child: Column(
-                      children: [
-                        const Image(
-                          image: AssetImage(
-                            'assets/Group 1458.png',
+            body: SingleChildScrollView(
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 35),
+                  child: Center(
+                    child: Form(
+                      child: Column(
+                        children: [
+                          const Image(
+                            image: AssetImage(
+                              'assets/Group 1458.png',
+                            ),
+                            width: 150,
+                            height: 150,
                           ),
-                          width: 150,
-                          height: 150,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const Text(
-                          'Hey!',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                            onChanged: (val) {
-                              setState(() {
-                                emailtxt = val;
-                              });
-                            },
-                            style: const TextStyle(
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          const Text(
+                            'Hey!',
+                            style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            decoration: const InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white)),
-                                hintText: 'Email',
-                                hintStyle: TextStyle(color: Colors.white))),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        TextFormField(
-                            onChanged: (val) {
-                              setState(() {
-                                passwordtxt = val;
-                              });
-                            },
-                            obscureText: true,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            decoration: const InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white)),
-                                hintText: 'Password',
-                                hintStyle: TextStyle(color: Colors.white))),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Align(
-                            alignment: Alignment.centerRight,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                              onChanged: (val) {
+                                setState(() {
+                                  emailtxt = val;
+                                });
+                              },
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(color: Colors.white))),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          TextFormField(
+                              onChanged: (val) {
+                                setState(() {
+                                  passwordtxt = val;
+                                });
+                              },
+                              obscureText: true,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(color: Colors.white))),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    "Forgot Password ?",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 50),
+                              ),
+                              FloatingActionButton(
+                                  onPressed: () {
+                                    auth.signin(emailtxt, passwordtxt);
+                                  },
+                                  backgroundColor: Colors.cyan,
+                                  child: const Icon(Icons.arrow_forward)),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
                             child: TextButton(
                                 onPressed: () {},
                                 child: const Text(
-                                  "Forgot Password ?",
-                                  style: TextStyle(color: Colors.white),
-                                ))),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 50),
-                            ),
-                            FloatingActionButton(
-                                onPressed: () {
-                                  auth.signin(emailtxt, passwordtxt);
-                                },
-                                backgroundColor: Colors.cyan,
-                                child: const Icon(Icons.arrow_forward)),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Divider(
-                          color: Colors.white,
-                          thickness: 1,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Create new account ! ',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        )
-                      ],
+                                  'Create new account ! ',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ))));
+                  )),
+            )));
   }
 }
