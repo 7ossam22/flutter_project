@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get_cloud/api/iauth.dart';
 
 // ignore: camel_case_types
@@ -29,6 +28,7 @@ class firebaseIAuth extends IAuth {
       print('Current user is : ${user.toString()}');
       return true;
     } catch (e) {
+      // ignore: avoid_print
       print('Failed $e');
       return false;
     }
