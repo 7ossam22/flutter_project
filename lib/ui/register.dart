@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get_cloud/viewmodel/login_viewmodel.dart';
+import 'package:get_cloud/viewmodel/register_viewmodel.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _MyAppState extends State<MyApp> {
-  LoginViewModel viewModel = LoginViewModel();
+class _RegisterState extends State<Register> {
+  RegisterViewModel viewModel = RegisterViewModel();
+  String username = '';
   String emailtxt = '';
   String passwordtxt = '';
 
@@ -19,8 +20,8 @@ class _MyAppState extends State<MyApp> {
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          Color.fromRGBO(86, 190, 227, 1),
-          Color.fromRGBO(43, 95, 114, 1)
+          Color.fromRGBO(86, 190, 190, 1),
+          Color.fromRGBO(43, 95, 90, 1)
         ], begin: Alignment.topRight, end: Alignment.bottomLeft)),
         child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
                               height: 15,
                             ),
                             const Text(
-                              'Hey!',
+                              'Welcome!',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -53,6 +54,24 @@ class _MyAppState extends State<MyApp> {
                             ),
                             const SizedBox(
                               height: 10,
+                            ),
+                            TextFormField(
+                                onChanged: (val) {
+                                  setState(() {
+                                    username = val;
+                                  });
+                                },
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.white)),
+                                    hintText: 'Username',
+                                    hintStyle: TextStyle(color: Colors.white))),
+                            const SizedBox(
+                              height: 30,
                             ),
                             TextFormField(
                                 onChanged: (val) {
@@ -89,24 +108,13 @@ class _MyAppState extends State<MyApp> {
                                     hintText: 'Password',
                                     hintStyle: TextStyle(color: Colors.white))),
                             const SizedBox(
-                              height: 10,
-                            ),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Forgot Password ?",
-                                      style: TextStyle(color: Colors.white),
-                                    ))),
-                            const SizedBox(
-                              height: 10,
+                              height: 50,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
-                                  "Sign In",
+                                  "Sign Up",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -120,9 +128,11 @@ class _MyAppState extends State<MyApp> {
                                       if (snapshot.data == false) {
                                         return FloatingActionButton(
                                             onPressed: () => viewModel
-                                                .signInWithEmailAndPassword(
-                                                    emailtxt, passwordtxt),
-                                            backgroundColor: Colors.cyan,
+                                                .registerWithEmailAndPassword(
+                                                    username,
+                                                    emailtxt,
+                                                    passwordtxt),
+                                            backgroundColor: Colors.greenAccent,
                                             child: const Icon(
                                                 Icons.arrow_forward));
                                       } else {
@@ -147,11 +157,10 @@ class _MyAppState extends State<MyApp> {
                               alignment: Alignment.centerLeft,
                               child: TextButton(
                                   onPressed: () {
-                                    Navigator.popAndPushNamed(
-                                        context, '/register');
+                                    Navigator.popAndPushNamed(context, '/');
                                   },
                                   child: const Text(
-                                    'Create new account ! ',
+                                    'Already have account ! ',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),

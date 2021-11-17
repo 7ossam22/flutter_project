@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_cloud/api/iauth.dart';
 
@@ -5,6 +6,9 @@ import 'package:get_cloud/api/iauth.dart';
 class firebaseIAuth extends IAuth {
 //final Future<FirebaseApp> app = Firebase.initializeApp();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference _db =
+      FirebaseFirestore.instance.collection('users');
+  late String _user;
   // ignore: non_constant_identifier_names
   firebaseIAuth Singelton() {
     firebaseIAuth? instanse;
@@ -13,8 +17,18 @@ class firebaseIAuth extends IAuth {
   }
 
   @override
-  Future<bool> register() {
-    throw UnimplementedError();
+  Future<bool> register(String username, String email, String password) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      _user = _auth.currentUser!.uid.toString();
+      pushUserData(username, email, password);
+      // ignore: avoid_print
+      print('Current user is : $_user');
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -22,15 +36,33 @@ class firebaseIAuth extends IAuth {
     try {
       await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
-      // ignore: unused_local_variable
-      String user = _auth.currentUser!.uid.toString();
+      _user = _auth.currentUser!.uid.toString();
       // ignore: avoid_print
-      print('Current user is : ${user.toString()}');
+      print('Current user is : $_user');
       return true;
     } catch (e) {
       // ignore: avoid_print
       print('Failed $e');
       return false;
+    }
+  }
+
+  pushUserData(String username, String email, String password) async {
+    if (username.isEmpty) {
+      // ignore: avoid_print
+      print(
+          'Error: failed to push Data into fireStore cause the username recieved as a null');
+      return false;
+    } else {
+      Map<dynamic, dynamic> userData = {
+        'name': username,
+        'email': email,
+        'password': password,
+        'profilePic': '',
+        'usage': '0'
+      };
+      await _db.doc(_user.toString()).set(userData);
+      return true;
     }
   }
 }
