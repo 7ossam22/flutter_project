@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_cloud/api/firebase_iauth.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -14,11 +15,13 @@ class LoginViewModel {
   Stream<bool> get loadingIndicator => _loadingIndicator.stream;
   Stream<bool> get isLoggedIn => _isLoggedIn.stream;
 
-  Future<bool> signInWithEmailAndPassword(String email, String password) async {
+  Future<bool> signInWithEmailAndPassword(
+      String email, String password, BuildContext context) async {
     _loadingIndicator.add(true);
     bool result = await _auth.signin(email, password);
     if (result) {
       _isLoggedIn.add(true);
+      Navigator.pushReplacementNamed(context, '/home');
       _loadingIndicator.add(false);
       return true;
     } else {
@@ -29,4 +32,18 @@ class LoginViewModel {
     // ignore: avoid_print, dead_code
     print(result);
   }
+  // }StreamBuilder<bool>(
+  //                               stream: viewModel.isRegistered,
+  //                               initialData: false,
+  //                               builder: (context, snapshot) {
+  //                                 if (snapshot.data == true) {
+  //                                   Navigator.popAndPushNamed(context, '/home');
+  //                                 } else {
+  //                                   Fluttertoast.showToast(
+  //                                     msg: 'Login Failed',
+  //                                     toastLength: Toast.LENGTH_LONG,
+  //                                     gravity: ToastGravity.CENTER
+  //                                   );
+  //                                 }
+  //                               })
 }

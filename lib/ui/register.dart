@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_cloud/viewmodel/register_viewmodel.dart';
 
 class Register extends StatefulWidget {
@@ -131,7 +132,8 @@ class _RegisterState extends State<Register> {
                                                 .registerWithEmailAndPassword(
                                                     username,
                                                     emailtxt,
-                                                    passwordtxt),
+                                                    passwordtxt,
+                                                    context),
                                             backgroundColor: Colors.greenAccent,
                                             child: const Icon(
                                                 Icons.arrow_forward));
@@ -165,7 +167,7 @@ class _RegisterState extends State<Register> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   )),
-                            )
+                            ),
                           ],
                         ),
                       ),

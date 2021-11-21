@@ -13,7 +13,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     initialRoute: '/',
     routes: {
-      '/': (context) => const MyApp(),
+      '/': (context) => const Login(),
       '/register': (context) => const Register(),
       '/home': (context) => const Home(),
     },

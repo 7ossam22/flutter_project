@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_cloud/viewmodel/login_viewmodel.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  _LoginState createState() => _LoginState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _LoginState extends State<Login> {
   LoginViewModel viewModel = LoginViewModel();
   String emailtxt = '';
   String passwordtxt = '';
@@ -121,7 +121,9 @@ class _MyAppState extends State<MyApp> {
                                         return FloatingActionButton(
                                             onPressed: () => viewModel
                                                 .signInWithEmailAndPassword(
-                                                    emailtxt, passwordtxt),
+                                                    emailtxt,
+                                                    passwordtxt,
+                                                    context),
                                             backgroundColor: Colors.cyan,
                                             child: const Icon(
                                                 Icons.arrow_forward));
