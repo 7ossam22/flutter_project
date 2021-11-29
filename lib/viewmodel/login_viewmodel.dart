@@ -32,18 +32,4 @@ class LoginViewModel {
     // ignore: avoid_print, dead_code
     print(result);
   }
-  // }StreamBuilder<bool>(
-  //                               stream: viewModel.isRegistered,
-  //                               initialData: false,
-  //                               builder: (context, snapshot) {
-  //                                 if (snapshot.data == true) {
-  //                                   Navigator.popAndPushNamed(context, '/home');
-  //                                 } else {
-  //                                   Fluttertoast.showToast(
-  //                                     msg: 'Login Failed',
-  //                                     toastLength: Toast.LENGTH_LONG,
-  //                                     gravity: ToastGravity.CENTER
-  //                                   );
-  //                                 }
-  //                               })
 }
