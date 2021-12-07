@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_cloud/viewmodel/login_viewmodel.dart';
 
 class Login extends StatefulWidget {
@@ -116,7 +117,6 @@ class _LoginState extends State<Login> {
                                     stream: viewModel.loadingIndicator,
                                     initialData: false,
                                     builder: (context, snapshot) {
-                                      // ignore: dead_code
                                       if (snapshot.data == false) {
                                         return FloatingActionButton(
                                             onPressed: () => viewModel
@@ -158,7 +158,7 @@ class _LoginState extends State<Login> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   )),
-                            )
+                            ),
                           ],
                         ),
                       ),
