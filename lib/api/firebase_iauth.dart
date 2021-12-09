@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_cloud/api/iauth.dart';
+import 'package:get_cloud/model/user_model.dart';
 
 // ignore: camel_case_types
 class firebaseIAuth extends IAuth {
@@ -46,6 +47,20 @@ class firebaseIAuth extends IAuth {
       return false;
     }
   }
+
+  // ToDo --> Need to Work again and figure out how to make the snapshot receiver works
+
+  // Stream<UserModel> get userData {
+  //   return _db.doc(_user.toString()).snapshots().map(_userModelFromSnapshots);
+  // }
+
+  // UserModel _userModelFromSnapshots(DocumentSnapshot snapshot) {
+  //   return UserModel(
+  //       snapshot.get('name').toString(),
+  //       snapshot.get('email').toString(),
+  //       snapshot.get('profilePic').toString(),
+  //       snapshot.get('usage').toString());
+  // }
 
   pushUserData(String username, String email, String password) async {
     if (username.isEmpty) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get_cloud/api/firebase_iauth.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -9,6 +10,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,18 +57,66 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.fromLTRB(30, 20, 20, 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
-                        Text(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Text(
                           'Storage',
                           style: TextStyle(
                               color: Colors.cyan,
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
+                        ),
+                        const Align(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Text('500 MB / 5 GB used',
+                              style:
+                                  TextStyle(color: Colors.cyan, fontSize: 15)),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const LinearProgressIndicator(
+                          minHeight: 10,
+                          color: Colors.cyan,
+                          value: 0.1,
                         )
                       ],
                     ),
                   ),
-                )
+                ),
+                const SizedBox(height: 25),
+                Flexible(
+                  flex: 3,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Flexible(
+                            child: ListView(),
+                          ),
+                          Align(
+                              alignment: AlignmentDirectional.bottomEnd,
+                              child: FloatingActionButton(
+                                onPressed: () {},
+                                backgroundColor: Colors.cyan,
+                                child: const Icon(Icons.add),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
