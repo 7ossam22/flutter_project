@@ -12,9 +12,9 @@ class firebaseIAuth extends IAuth {
   late String _user;
   // ignore: non_constant_identifier_names
   firebaseIAuth Singelton() {
-    firebaseIAuth? instanse;
-    instanse ??= firebaseIAuth();
-    return instanse;
+    firebaseIAuth? instance;
+    instance ??= firebaseIAuth();
+    return instance;
   }
 
   @override
@@ -48,21 +48,16 @@ class firebaseIAuth extends IAuth {
     }
   }
 
-  // ToDo --> Need to Work again and figure out how to make the snapshot receiver works
+  @override
+  Future<UserModel> getUserData() async {
+    return await _db.doc(_auth.currentUser!.uid).get().then((value) =>
+        UserModel(value.get('name'), value.get('email'),
+            value.get('profilePic'), value.get('usage')));
+  }
 
-  // Stream<UserModel> get userData {
-  //   return _db.doc(_user.toString()).snapshots().map(_userModelFromSnapshots);
-  // }
-
-  // UserModel _userModelFromSnapshots(DocumentSnapshot snapshot) {
-  //   return UserModel(
-  //       snapshot.get('name').toString(),
-  //       snapshot.get('email').toString(),
-  //       snapshot.get('profilePic').toString(),
-  //       snapshot.get('usage').toString());
-  // }
-
-  pushUserData(String username, String email, String password) async {
+  @override
+  Future<bool> pushUserData(
+      String username, String email, String password) async {
     if (username.isEmpty) {
       // ignore: avoid_print
       print(
@@ -76,8 +71,23 @@ class firebaseIAuth extends IAuth {
         'profilePic': '',
         'usage': '0'
       };
-      await _db.doc(_user.toString()).set(userData);
+      await _db.doc(_auth.currentUser!.uid.toString()).set(userData);
       return true;
     }
   }
 }
+
+  // ToDo --> Need to Work again and figure out how to make the snapshot receiver works
+  // Nvm I made it somehow :D
+
+  // Stream<UserModel> get userData {
+  //   return _db.doc(_user.toString()).snapshots().map(_userModelFromSnapshots);
+  // }
+
+  // UserModel _userModelFromSnapshots(DocumentSnapshot snapshot) {
+  //   return UserModel(
+  //       snapshot.get('name').toString(),
+  //       snapshot.get('email').toString(),
+  //       snapshot.get('profilePic').toString(),
+  //       snapshot.get('usage').toString());
+  // }

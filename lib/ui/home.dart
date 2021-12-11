@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_cloud/api/firebase_iauth.dart';
+import 'package:get_cloud/viewmodel/home_viewmodel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,6 +18,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeViewModel _viewModel = HomeViewModel();
+    _viewModel.onGettingUserData();
+    print('UserModel Printed to be ----> ${_viewModel.userModel}');
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -39,10 +43,20 @@ class _HomeState extends State<Home> {
                             size: 30,
                             color: Colors.white,
                           )),
-                      const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://p7.hiclipart.com/preview/252/195/771/screaming-souls-levi-manga-x-ray-dog-anime-anime-couple-images.jpg'),
-                      )
+                      StreamBuilder<String>(
+                          stream: _viewModel.profilePic,
+                          builder: (context, snapshot) {
+                            if (snapshot.data!.isNotEmpty) {
+                              return CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(snapshot.data.toString()),
+                                backgroundColor:
+                                    const Color.fromRGBO(86, 190, 227, 1),
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          })
                     ]),
                 const SizedBox(
                   height: 10,
@@ -69,20 +83,38 @@ class _HomeState extends State<Home> {
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
                         ),
-                        const Align(
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text('500 MB / 5 GB used',
-                              style:
-                                  TextStyle(color: Colors.cyan, fontSize: 15)),
-                        ),
+                        StreamBuilder<double>(
+                            stream: _viewModel.usage,
+                            builder: (context, snapshot) {
+                              if (snapshot.data!.toString().isNotEmpty) {
+                                return Align(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Text(
+                                      '${snapshot.data!.toString()} / 5 GB used',
+                                      style: const TextStyle(
+                                          color: Colors.cyan, fontSize: 15)),
+                                );
+                              } else {
+                                return const Align(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Text('500 MB / 5 GB used',
+                                      style: TextStyle(
+                                          color: Colors.cyan, fontSize: 15)),
+                                );
+                              }
+                            }),
                         const SizedBox(
                           height: 8,
                         ),
-                        const LinearProgressIndicator(
-                          minHeight: 10,
-                          color: Colors.cyan,
-                          value: 0.1,
-                        )
+                        StreamBuilder<double>(
+                            stream: _viewModel.usage,
+                            builder: (context, snapshot) {
+                              return LinearProgressIndicator(
+                                minHeight: 10,
+                                color: Colors.cyan,
+                                value: (snapshot.data! / 5242880).toDouble(),
+                              );
+                            })
                       ],
                     ),
                   ),
