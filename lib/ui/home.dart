@@ -71,11 +71,9 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.fromLTRB(30, 20, 20, 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
                         const Text(
                           'Storage',
                           style: TextStyle(
@@ -83,14 +81,13 @@ class _HomeState extends State<Home> {
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
                         ),
-                        StreamBuilder<double>(
-                            stream: _viewModel.usage,
+                        StreamBuilder<String>(
+                            stream: _viewModel.bytes,
                             builder: (context, snapshot) {
                               if (snapshot.data!.toString().isNotEmpty) {
                                 return Align(
                                   alignment: AlignmentDirectional.centerEnd,
-                                  child: Text(
-                                      '${snapshot.data!.toString()} / 5 GB used',
+                                  child: Text('${snapshot.data} / 5 GB used',
                                       style: const TextStyle(
                                           color: Colors.cyan, fontSize: 15)),
                                 );
@@ -103,16 +100,14 @@ class _HomeState extends State<Home> {
                                 );
                               }
                             }),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        StreamBuilder<double>(
+                        StreamBuilder<String>(
                             stream: _viewModel.usage,
                             builder: (context, snapshot) {
                               return LinearProgressIndicator(
                                 minHeight: 10,
                                 color: Colors.cyan,
-                                value: (snapshot.data! / 5242880).toDouble(),
+                                value: (int.parse(snapshot.data!) / 5242880)
+                                    .toDouble(),
                               );
                             })
                       ],
